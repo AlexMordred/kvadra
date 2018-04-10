@@ -1,15 +1,17 @@
 <template>
     <div class="container">
-        <p>Категории: {{ categories }}</p>
+        <vue-navbar></vue-navbar>
 
-        <hr>
-        
-        <p>Точки: {{ points }}</p>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
+    import VueNavbar from './Navbar.vue';
+
     export default {
+        components: { VueNavbar },
+
         computed: {
             categories() {
                 return this.$store.state.categories;

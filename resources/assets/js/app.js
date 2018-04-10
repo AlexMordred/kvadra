@@ -1,7 +1,10 @@
 require('./bootstrap');
 import Vuex from 'vuex';
+import VueRouter from 'vue-router'
+import router from './routes.js';
 
 Vue.use(Vuex);
+Vue.use(VueRouter);
 
 // Vuex store
 const store = new Vuex.Store({
@@ -14,5 +17,6 @@ Vue.component('vue-layout', require('./views/layout/App.vue'));
 // Vue app
 const app = new Vue({
     el: '#app',
-    store
+    store,
+    router
 });
