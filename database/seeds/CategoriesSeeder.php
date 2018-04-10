@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Category;
+use Illuminate\Support\Facades\Schema;
 
 class CategoriesSeeder extends Seeder
 {
@@ -12,6 +13,7 @@ class CategoriesSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
         Category::truncate();
 
         factory('App\Category', 10)->create();
