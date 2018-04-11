@@ -31669,7 +31669,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -31688,16 +31688,98 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            map: null,
+            markers: []
+        };
+    },
+
+
+    computed: {
+        categories: function categories() {
+            return this.$store.state.categories;
+        },
+        points: function points() {
+            return this.$store.state.points;
+        }
+    },
+
     mounted: function mounted() {
-        var map = L.map('map').setView([51.505, -0.09], 13);
+        this.initMap();
+        this.refreshMarkers();
+    },
 
-        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-            subdomains: ['a', 'b', 'c']
-        }).addTo(map);
 
-        var marker = L.marker([51.5, -0.09]).addTo(map);
-        marker.bindPopup("<b>Hello world!</b><br>I am a popup.");
+    methods: {
+        initMap: function initMap() {
+            this.map = L.map('map').setView([51.505, -0.09], 13);
+
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                subdomains: ['a', 'b', 'c']
+            }).addTo(this.map);
+        },
+        refreshMarkers: function refreshMarkers() {
+            this.removeAllMarkers();
+
+            this.markers = [];
+
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = this.points[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var point = _step.value;
+
+                    var marker = L.marker([point.lat, point.long]).bindPopup(point.category.title + '<br>' + point.created_at);
+
+                    this.markers.push(marker);
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            L.layerGroup(this.markers).addTo(this.map);
+        },
+        removeAllMarkers: function removeAllMarkers() {
+            var _iteratorNormalCompletion2 = true;
+            var _didIteratorError2 = false;
+            var _iteratorError2 = undefined;
+
+            try {
+                for (var _iterator2 = this.markers[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                    var marker = _step2.value;
+
+                    this.map.removeLayer(marker);
+                }
+            } catch (err) {
+                _didIteratorError2 = true;
+                _iteratorError2 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                        _iterator2.return();
+                    }
+                } finally {
+                    if (_didIteratorError2) {
+                        throw _iteratorError2;
+                    }
+                }
+            }
+        }
     }
 });
 

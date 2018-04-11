@@ -11,4 +11,11 @@ class Point extends Model
         'lat',
         'long',
     ];
+
+    protected $with = ['category'];
+
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
+    }
 }

@@ -6,16 +6,57 @@
 
 <script>
 export default {
+    data() {
+        return {
+            map: null,
+            markers: [],
+        };
+    },
+
+    computed: {
+        categories() {
+            return this.$store.state.categories;
+        },
+
+        points() {
+            return this.$store.state.points;
+        }
+    },
+    
     mounted () {
-        var map = L.map('map').setView([51.505, -0.09], 13);
+        this.initMap();
+        this.refreshMarkers();
+    },
 
-        L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-            subdomains: ['a','b','c']
-        }).addTo(map);
+    methods: {
+        initMap() {
+            this.map = L.map('map').setView([51.505, -0.09], 13);
 
-        var marker = L.marker([51.5, -0.09]).addTo(map);
-        marker.bindPopup("<b>Hello world!</b><br>I am a popup.");        
+            L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                subdomains: ['a','b','c']
+            }).addTo(this.map);
+        },
+
+        refreshMarkers() {
+            this.removeAllMarkers();
+
+            this.markers = [];
+
+            for (let point of this.points) {                
+                let marker = L.marker([point.lat, point.long]).bindPopup(`${point.category.title}<br>${point.created_at}`);
+
+                this.markers.push(marker);
+            }
+
+            L.layerGroup(this.markers).addTo(this.map);
+        },
+
+        removeAllMarkers() {
+            for (let marker of this.markers) {
+                this.map.removeLayer(marker);
+            }
+        }
     }
 }
 </script>
