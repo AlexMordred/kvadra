@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Vue from 'vue';
+import L from 'leaflet';
 
 // axios
 window.axios = axios;

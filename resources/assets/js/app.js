@@ -13,6 +13,7 @@ const store = new Vuex.Store({
 
 // Vue components
 Vue.component('vue-layout', require('./views/layout/App.vue'));
+Vue.component('l-map', require('./components/Map.vue'));
 
 // Vue app
 const app = new Vue({

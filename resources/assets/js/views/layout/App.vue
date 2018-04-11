@@ -1,8 +1,10 @@
 <template>
-    <div class="container">
+    <div class="container h-100p flex-column">
         <vue-navbar></vue-navbar>
 
-        <router-view></router-view>
+        <div class="flex-1">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 
