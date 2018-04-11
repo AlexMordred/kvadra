@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Point extends Model
 {
     protected $fillable = [
-        'category_id'
+        'category_id',
+        'lat',
+        'long',
     ];
 }

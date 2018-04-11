@@ -16,6 +16,8 @@ class CreatePointsTable extends Migration
         Schema::create('points', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('category_id');
+            $table->double('lat');
+            $table->double('long');
             $table->timestamps();
 
             $table->foreign('category_id')

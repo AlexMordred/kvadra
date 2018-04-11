@@ -16,7 +16,9 @@ class StorePointsTest extends TestCase
         $this->assertEquals(0, Point::count());
 
         $data = [
-            'category_id' => factory('App\Category')->create()->id
+            'category_id' => factory('App\Category')->create()->id,
+            'lat' => 100.500,
+            'long' => 100.500,
         ];
 
         $this->postJson(route('points.store'), $data)
@@ -27,6 +29,8 @@ class StorePointsTest extends TestCase
         $point = Point::first();
 
         $this->assertEquals($data['category_id'], $point['category_id']);
+        $this->assertEquals($data['lat'], $point['lat']);
+        $this->assertEquals($data['long'], $point['long']);
     }
 
     /** @test */
@@ -47,5 +51,25 @@ class StorePointsTest extends TestCase
         $this->postJson(route('points.store'), ['category_id' => 999])
             ->assertStatus(422)
             ->assertJsonValidationErrors(['category_id']);
+    }
+
+    /** @test */
+    public function a_point_requires_a_latitude()
+    {
+        $this->withExceptionHandling();
+
+        $this->postJson(route('points.store'), [])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['lat']);
+    }
+
+    /** @test */
+    public function a_point_requires_a_longitude()
+    {
+        $this->withExceptionHandling();
+
+        $this->postJson(route('points.store'), [])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['long']);
     }
 }
