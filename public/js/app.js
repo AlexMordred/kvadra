@@ -4066,6 +4066,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_leaflet__ = __webpack_require__(63);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_leaflet___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_leaflet__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Form_js__ = __webpack_require__(69);
+
 
 
 
@@ -4085,6 +4087,9 @@ if (token) {
 
 // Vue
 window.Vue = __WEBPACK_IMPORTED_MODULE_1_vue___default.a;
+
+// Utils
+window.Form = __WEBPACK_IMPORTED_MODULE_3__utils_Form_js__["a" /* default */];
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -17272,7 +17277,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17324,8 +17329,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            form: new Form({
+                category_id: ''
+            })
+        };
+    }
+});
 
 /***/ }),
 /* 45 */
@@ -17341,7 +17362,19 @@ var render = function() {
     [
       _c("h1", { staticClass: "is-size-3" }, [_vm._v("Карта")]),
       _vm._v(" "),
-      _c("l-map")
+      _c("vue-select", {
+        attrs: {
+          form: _vm.form,
+          name: "category_id",
+          label: "Категория",
+          options: this.$store.state.categories,
+          keyText: "title",
+          keyValue: "id",
+          showDefaultOption: true
+        }
+      }),
+      _vm._v(" "),
+      _c("l-map", { attrs: { "category-id": this.form.data.category_id } })
     ],
     1
   )
@@ -17442,7 +17475,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17453,7 +17486,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_Form_js__ = __webpack_require__(69);
 //
 //
 //
@@ -17485,13 +17517,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            form: new __WEBPACK_IMPORTED_MODULE_0__utils_Form_js__["a" /* default */]({
+            form: new Form({
                 category_id: '',
                 lat: '',
                 long: ''
@@ -17499,12 +17529,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-
-    computed: {
-        categories: function categories() {
-            return this.$store.state.categories;
-        }
-    },
 
     methods: {
         onSubmit: function onSubmit() {
@@ -17548,7 +17572,7 @@ var render = function() {
             form: _vm.form,
             name: "category_id",
             label: "Категория",
-            options: _vm.categories,
+            options: this.$store.state.categories,
             keyText: "title",
             keyValue: "id",
             showDefaultOption: true
@@ -31768,7 +31792,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -31787,6 +31811,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['categoryId'],
+
     data: function data() {
         return {
             map: null,
@@ -31810,6 +31836,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
 
+    watch: {
+        categoryId: function categoryId() {
+            this.refreshMarkers();
+        }
+    },
+
     methods: {
         initMap: function initMap() {
             this.map = L.map('map').setView([51.505, -0.09], 13);
@@ -31831,6 +31863,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             try {
                 for (var _iterator = this.points[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                     var point = _step.value;
+
+                    if (this.categoryId && this.categoryId != point.category_id) {
+                        continue;
+                    }
 
                     var marker = L.marker([point.lat, point.long]).bindPopup(point.category.title + '<br>' + point.created_at);
 

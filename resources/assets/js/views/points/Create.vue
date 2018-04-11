@@ -7,7 +7,7 @@
             <vue-select :form="form"
                 name="category_id"
                 label="Категория"
-                :options="categories"
+                :options="this.$store.state.categories"
                 keyText="title"
                 keyValue="id"
                 :showDefaultOption="true"></vue-select>
@@ -30,8 +30,6 @@
 </template>
 
 <script>
-import Form from '../../utils/Form.js';
-
 export default {
     data() {
         return {
@@ -41,12 +39,6 @@ export default {
                 long: '',
             }),
         };
-    },
-
-    computed: {
-        categories() {
-            return this.$store.state.categories;
-        },
     },
 
     methods: {

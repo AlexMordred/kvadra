@@ -6,6 +6,8 @@
 
 <script>
 export default {
+    props: ['categoryId'],
+
     data() {
         return {
             map: null,
@@ -28,6 +30,12 @@ export default {
         this.refreshMarkers();
     },
 
+    watch: {
+        categoryId() {
+            this.refreshMarkers();
+        }
+    },
+
     methods: {
         initMap() {
             this.map = L.map('map').setView([51.505, -0.09], 13);
@@ -43,7 +51,11 @@ export default {
 
             this.markers = [];
 
-            for (let point of this.points) {                
+            for (let point of this.points) {
+                if (this.categoryId && this.categoryId != point.category_id) {
+                    continue;
+                }
+
                 let marker = L.marker([point.lat, point.long]).bindPopup(`${point.category.title}<br>${point.created_at}`);
 
                 this.markers.push(marker);

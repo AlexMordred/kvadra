@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Vue from 'vue';
 import L from 'leaflet';
+import Form from './utils/Form.js';
 
 // axios
 window.axios = axios;
@@ -17,6 +18,9 @@ if (token) {
 
 // Vue
 window.Vue = Vue;
+
+// Utils
+window.Form = Form;
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
