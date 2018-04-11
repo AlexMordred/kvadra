@@ -13,4 +13,4 @@
 
 Route::get('/', 'AppController@index')->name('index');
 
-Route::post('/', 'PointsController@store')->name('points.store');
+Route::post('/points', 'PointsController@store')->name('points.store');

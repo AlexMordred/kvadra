@@ -4044,6 +4044,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
 // Vue components
 Vue.component('vue-layout', __webpack_require__(51));
 Vue.component('l-map', __webpack_require__(64));
+Vue.component('vue-select', __webpack_require__(70));
+Vue.component('vue-input', __webpack_require__(75));
 
 // Vue app
 var app = new Vue({
@@ -17440,7 +17442,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17451,6 +17453,32 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_Form_js__ = __webpack_require__(69);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -17458,7 +17486,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            form: new __WEBPACK_IMPORTED_MODULE_0__utils_Form_js__["a" /* default */]({
+                category_id: '',
+                lat: '',
+                long: ''
+            })
+        };
+    },
+
+
+    computed: {
+        categories: function categories() {
+            return this.$store.state.categories;
+        }
+    },
+
+    methods: {
+        onSubmit: function onSubmit() {
+            var _this = this;
+
+            this.form.submit('post', '/points').then(function (_ref) {
+                var data = _ref.data;
+
+                _this.$store.state.points.push(data);
+
+                _this.$router.push({ name: 'index' });
+            });
+        }
+    }
+});
 
 /***/ }),
 /* 50 */
@@ -17468,18 +17529,56 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("h1", { staticClass: "is-size-3" }, [_vm._v("Добавить точку")]),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.onSubmit($event)
+          }
+        }
+      },
+      [
+        _c("vue-select", {
+          attrs: {
+            form: _vm.form,
+            name: "category_id",
+            label: "Категория",
+            options: _vm.categories,
+            keyText: "title",
+            keyValue: "id",
+            showDefaultOption: true
+          }
+        }),
+        _vm._v(" "),
+        _c("vue-input", {
+          attrs: { form: _vm.form, name: "lat", label: "Широта" }
+        }),
+        _vm._v(" "),
+        _c("vue-input", {
+          attrs: { form: _vm.form, name: "long", label: "Долгота" }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "control" }, [
+          _c(
+            "button",
+            {
+              staticClass: "button is-link",
+              class: { "is-loading": _vm.form.isSubmitting }
+            },
+            [_vm._v("Добавить")]
+          )
+        ])
+      ],
+      1
+    )
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("h1", { staticClass: "is-size-3" }, [_vm._v("Добавить точку")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -31809,6 +31908,641 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-20909bf5", module.exports)
+  }
+}
+
+/***/ }),
+/* 69 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Form = function () {
+    /**
+     * Create a new Form instance.
+     * 
+     * @param {object} fields 
+     */
+    function Form(fields) {
+        _classCallCheck(this, Form);
+
+        this.data = fields;
+        this.initialData = Object.assign({}, fields);
+
+        this.isSubmitting = false;
+
+        this.errors = [];
+        this.error = '';
+    }
+
+    /**
+     * Submit the form.
+     * 
+     * @param {string} method 
+     * @param {string} endpoint
+     * @param {object} data 
+     */
+
+
+    _createClass(Form, [{
+        key: 'submit',
+        value: function submit(method, endpoint) {
+            var _this = this;
+
+            var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.data;
+
+            this.isSubmitting = true;
+            this.error = '';
+
+            return new Promise(function (resolve, reject) {
+                axios[method](endpoint, data).then(function (response) {
+                    _this.onSuccess(response);
+
+                    resolve(response);
+                }).catch(function (response) {
+                    _this.onFail(response);
+
+                    reject(response);
+                });
+            });
+        }
+
+        /**
+         * Handle a successful form submission.
+         * 
+         * @param {object} response 
+         */
+
+    }, {
+        key: 'onSuccess',
+        value: function onSuccess(response) {
+            this.isSubmitting = false;
+        }
+
+        /**
+         * Handle a failed form submission.
+         * 
+         * @param {object} response 
+         */
+
+    }, {
+        key: 'onFail',
+        value: function onFail(response) {
+            if (response.response.data.errors !== undefined) {
+                if (typeof response.response.data.errors === 'string') {
+                    this.errors = [];
+                    this.error = response.response.data.errors;
+                } else {
+                    this.error = '';
+                    this.errors = response.response.data.errors;
+                }
+            }
+
+            this.isSubmitting = false;
+        }
+
+        /** 
+         * Whether the form has any errors.
+        */
+
+    }, {
+        key: 'hasErrors',
+        value: function hasErrors() {
+            return !!Object.keys(this.errors).length;
+        }
+
+        /**
+         * Clear errors for the provided field.
+         * 
+         * @param {string} field 
+         */
+
+    }, {
+        key: 'clearErrors',
+        value: function clearErrors(field) {
+            delete this.errors[field];
+        }
+
+        /** 
+         * Reset the form to the initial state.
+        */
+
+    }, {
+        key: 'reset',
+        value: function reset() {
+            this.data = Object.assign({}, this.initialData);
+
+            this.errors = [];
+            this.error = '';
+
+            this.isSubmitting = false;
+        }
+    }]);
+
+    return Form;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Form);
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(71)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(73)
+/* template */
+var __vue_template__ = __webpack_require__(74)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Select.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-447febf3", Component.options)
+  } else {
+    hotAPI.reload("data-v-447febf3", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(72);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(12)("6dc99a3e", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-447febf3\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Select.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-447febf3\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Select.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(11)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 73 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['form', 'name', 'label', 'options', 'keyText', 'keyValue', 'disabled', 'showDefaultOption'],
+
+    methods: {
+        onChange: function onChange() {
+            this.form.clearErrors(name);
+
+            this.$emit('change', this.form.data[this.name]);
+        }
+    }
+});
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "field" }, [
+    _c("label", {
+      staticClass: "label",
+      domProps: { textContent: _vm._s(_vm.label) }
+    }),
+    _vm._v(" "),
+    _c("div", { staticClass: "control" }, [
+      _c("div", { staticClass: "select w-100p" }, [
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.data[_vm.name],
+                expression: "form.data[name]"
+              }
+            ],
+            staticClass: "w-100p",
+            attrs: { name: _vm.name, disabled: _vm.disabled },
+            on: {
+              change: [
+                function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.form.data,
+                    _vm.name,
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                },
+                _vm.onChange
+              ]
+            }
+          },
+          [
+            _vm.showDefaultOption
+              ? _c("option", { attrs: { value: "" } }, [_vm._v("-")])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm._l(_vm.options, function(item, index) {
+              return _c("option", {
+                key: index,
+                domProps: {
+                  value: item[_vm.keyValue],
+                  textContent: _vm._s(item[_vm.keyText])
+                }
+              })
+            })
+          ],
+          2
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _vm.form.errors[_vm.name]
+      ? _c("p", {
+          staticClass: "help is-danger mt-05",
+          domProps: { textContent: _vm._s(_vm.form.errors[_vm.name][0]) }
+        })
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-447febf3", module.exports)
+  }
+}
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(76)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(78)
+/* template */
+var __vue_template__ = __webpack_require__(79)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Input.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-a5ba29ba", Component.options)
+  } else {
+    hotAPI.reload("data-v-a5ba29ba", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 76 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(77);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(12)("304bbee0", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a5ba29ba\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Input.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a5ba29ba\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Input.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(11)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 78 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['form', 'name', 'label', 'type', 'disabled'],
+
+    data: function data() {
+        return {
+            inputType: this.type ? this.type : 'text'
+        };
+    }
+});
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "field" }, [
+    _c("label", {
+      staticClass: "label",
+      domProps: { textContent: _vm._s(_vm.label) }
+    }),
+    _vm._v(" "),
+    _c("div", { staticClass: "control" }, [
+      _vm.inputType === "checkbox"
+        ? _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.data[_vm.name],
+                expression: "form.data[name]"
+              }
+            ],
+            staticClass: "input",
+            class: { "is-danger": _vm.form.errors[_vm.name] },
+            attrs: {
+              name: _vm.name,
+              disabled: _vm.disabled,
+              autocomplete: "off",
+              type: "checkbox"
+            },
+            domProps: {
+              checked: Array.isArray(_vm.form.data[_vm.name])
+                ? _vm._i(_vm.form.data[_vm.name], null) > -1
+                : _vm.form.data[_vm.name]
+            },
+            on: {
+              keydown: function($event) {
+                $event.keyCode !== 13 ? _vm.form.clearErrors(_vm.name) : null
+              },
+              change: function($event) {
+                var $$a = _vm.form.data[_vm.name],
+                  $$el = $event.target,
+                  $$c = $$el.checked ? true : false
+                if (Array.isArray($$a)) {
+                  var $$v = null,
+                    $$i = _vm._i($$a, $$v)
+                  if ($$el.checked) {
+                    $$i < 0 &&
+                      _vm.$set(_vm.form.data, _vm.name, $$a.concat([$$v]))
+                  } else {
+                    $$i > -1 &&
+                      _vm.$set(
+                        _vm.form.data,
+                        _vm.name,
+                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                      )
+                  }
+                } else {
+                  _vm.$set(_vm.form.data, _vm.name, $$c)
+                }
+              }
+            }
+          })
+        : _vm.inputType === "radio"
+          ? _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.data[_vm.name],
+                  expression: "form.data[name]"
+                }
+              ],
+              staticClass: "input",
+              class: { "is-danger": _vm.form.errors[_vm.name] },
+              attrs: {
+                name: _vm.name,
+                disabled: _vm.disabled,
+                autocomplete: "off",
+                type: "radio"
+              },
+              domProps: { checked: _vm._q(_vm.form.data[_vm.name], null) },
+              on: {
+                keydown: function($event) {
+                  $event.keyCode !== 13 ? _vm.form.clearErrors(_vm.name) : null
+                },
+                change: function($event) {
+                  _vm.$set(_vm.form.data, _vm.name, null)
+                }
+              }
+            })
+          : _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.data[_vm.name],
+                  expression: "form.data[name]"
+                }
+              ],
+              staticClass: "input",
+              class: { "is-danger": _vm.form.errors[_vm.name] },
+              attrs: {
+                name: _vm.name,
+                disabled: _vm.disabled,
+                autocomplete: "off",
+                type: _vm.inputType
+              },
+              domProps: { value: _vm.form.data[_vm.name] },
+              on: {
+                keydown: function($event) {
+                  $event.keyCode !== 13 ? _vm.form.clearErrors(_vm.name) : null
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form.data, _vm.name, $event.target.value)
+                }
+              }
+            })
+    ]),
+    _vm._v(" "),
+    _vm.form.errors[_vm.name]
+      ? _c("p", {
+          staticClass: "help is-danger",
+          domProps: { textContent: _vm._s(_vm.form.errors[_vm.name][0]) }
+        })
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-a5ba29ba", module.exports)
   }
 }
 

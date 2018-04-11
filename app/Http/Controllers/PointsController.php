@@ -17,6 +17,6 @@ class PointsController extends Controller
 
         $point = Point::create(request()->all());
 
-        return $point;
+        return $point->load('category');
     }
 }

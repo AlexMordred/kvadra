@@ -14,6 +14,8 @@ const store = new Vuex.Store({
 // Vue components
 Vue.component('vue-layout', require('./views/layout/App.vue'));
 Vue.component('l-map', require('./components/Map.vue'));
+Vue.component('vue-select', require('./components/Select.vue'));
+Vue.component('vue-input', require('./components/Input.vue'));
 
 // Vue app
 const app = new Vue({
